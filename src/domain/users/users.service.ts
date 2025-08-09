@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, ConflictException } from '@nestjs/common';
 import { HASH, IHash } from 'src/adapters/hash.module';
 import { UsersRepository } from './users.repository';
 
@@ -15,6 +15,10 @@ export class UsersService {
     email: string,
     password: string,
   ): Promise<string> {
+    const existingUser = await this.usersRepository.findByEmail(email);
+
+    if (existingUser) throw new ConflictException('Email already in use');
+
     const hashedPassword = await this.hash.hash(password);
 
     // Here you'd save name, email, and hashedPassword to DB...

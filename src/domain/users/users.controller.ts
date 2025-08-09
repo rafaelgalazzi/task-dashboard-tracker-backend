@@ -1,5 +1,4 @@
 import {
-  // ConflictException,
   Body,
   Controller,
   Get,
@@ -40,11 +39,7 @@ export class UsersController {
     try {
       await this.usersService.createUser(name, email, password);
     } catch (error) {
-      console.log(error);
       console.log('Error creating user:', error);
-      // if (error instanceof DrizzleQueryError && error?.code === '23505') {
-      //   throw new ConflictException('Email already in use');
-      // }
       throw error;
     }
 

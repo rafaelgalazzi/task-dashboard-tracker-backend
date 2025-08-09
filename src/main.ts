@@ -2,6 +2,10 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { AllExceptionsFilter } from './common/filters/allExceptions.filter';
+import * as cookieParser from 'cookie-parser';
+
+// to generate a HS256 use
+//  node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -14,7 +18,10 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Accept',
     credentials: true,
   });
+  app.use(cookieParser());
+
   app.useGlobalFilters(new AllExceptionsFilter());
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // strips properties not in DTO

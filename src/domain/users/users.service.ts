@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { HASH, IHash } from '../../adapters/hash.module';
+import { HASH, IHash } from 'src/adapters/hash.module';
 import { UsersRepository } from './users.repository';
 
 @Injectable()

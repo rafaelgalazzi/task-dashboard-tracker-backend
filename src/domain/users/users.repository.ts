@@ -11,6 +11,12 @@ export class UsersRepository {
   ) {}
 
   create(user: NewUser): Promise<User[]> {
-    return this.db.insert(users).values(user).returning();
+    try {
+      const result = this.db.insert(users).values(user).returning();
+      return result;
+    } catch (error) {
+      console.error('Error creating user:', error);
+      throw error;
+    }
   }
 }

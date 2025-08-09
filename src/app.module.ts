@@ -5,6 +5,8 @@ import { DatabaseModule } from './adapters/database.module';
 import { AuthRepository } from './domain/auth/auth.repository';
 import { HashModule } from './adapters/hash.module';
 import { ConfigModule } from '@nestjs/config';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './common/filters/allExceptions.filter';
 
 @Module({
   imports: [
@@ -15,6 +17,9 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({ isGlobal: true }),
   ],
   controllers: [],
-  providers: [AuthRepository],
+  providers: [
+    AuthRepository,
+    { provide: APP_FILTER, useClass: AllExceptionsFilter },
+  ],
 })
 export class AppModule {}

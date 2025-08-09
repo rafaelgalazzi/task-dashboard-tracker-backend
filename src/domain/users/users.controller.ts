@@ -9,6 +9,7 @@ import {
 import { UsersService } from './users.service';
 
 import { IsString, IsEmail, MinLength } from 'class-validator';
+import { Public } from '../../decoratos/public.decorator';
 
 export class CreateUserDto {
   @IsEmail()
@@ -32,6 +33,7 @@ export class UsersController {
   }
 
   @Post('/account/create')
+  @Public()
   @HttpCode(HttpStatus.CREATED)
   async createUser(@Body() body: CreateUserDto) {
     const { name, email, password } = body;

@@ -3,7 +3,7 @@ import { and, eq, isNull } from 'drizzle-orm';
 import { DrizzleType } from 'src/adapters/database.module';
 import { DRIZZLE } from 'src/adapters/database.module';
 import { User, users } from 'src/adapters/schema';
-import { DatabaseError } from 'src/erros/database.error';
+import { DatabaseError } from 'src/common/erros/database.error';
 
 @Injectable()
 export class AuthRepository {
@@ -14,13 +14,12 @@ export class AuthRepository {
 
   async findByEmailWithPassword(email: string): Promise<User | null> {
     try {
-      const result = this.db
+      const result = await this.db
         .select()
         .from(users)
         .where(and(eq(users.email, email), isNull(users.deletedAt)))
-        .limit(1)
-        .then(([user]) => user ?? null);
-      return result;
+        .limit(1);
+      return result.length ? result[0] : null;
     } catch (error) {
       console.error('Error finding user by email:', error);
       throw new DatabaseError('Error finding user by email');

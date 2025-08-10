@@ -18,6 +18,7 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Accept',
     credentials: true,
   });
+
   app.use(cookieParser());
 
   app.useGlobalFilters(new AllExceptionsFilter());

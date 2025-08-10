@@ -21,7 +21,6 @@ export class UsersService {
 
     const hashedPassword = await this.hash.hash(password);
 
-    // Here you'd save name, email, and hashedPassword to DB...
     const newUser = {
       name,
       email,
@@ -30,7 +29,7 @@ export class UsersService {
 
     const createdUser = await this.usersRepository.create(newUser);
 
-    return `User created with ID: ${createdUser[0].id}`;
+    return `User created with ID: ${createdUser.id}`;
   }
 
   getHello(): string {

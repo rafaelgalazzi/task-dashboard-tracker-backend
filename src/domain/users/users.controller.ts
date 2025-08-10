@@ -9,7 +9,7 @@ import {
 import { UsersService } from './users.service';
 
 import { IsString, IsEmail, MinLength } from 'class-validator';
-import { Public } from '../../decoratos/public.decorator';
+import { Public } from '../../common/decoratos/public.decorator';
 
 export class CreateUserDto {
   @IsEmail()

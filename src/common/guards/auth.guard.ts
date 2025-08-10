@@ -8,7 +8,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { IS_PUBLIC_KEY } from '../decoratos/public.decorator';
-import { JwtPayload, RequestWithUser } from 'src/types/auth.types';
+import { JwtPayload, RequestWithUser } from 'src/common/types/auth.types';
 
 function hasAuthCookie(cookies: unknown): cookies is { auth_token: string } {
   return (
@@ -31,6 +31,7 @@ export class AuthGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
+
     if (isPublic) return true;
 
     const req = context.switchToHttp().getRequest<RequestWithUser>();

@@ -8,8 +8,8 @@ import { HASH, IHash } from 'src/adapters/hash.module';
 import { AuthRepository } from './auth.repository';
 import { JwtService } from '@nestjs/jwt';
 import { UsersRepository } from '../users/users.repository';
-import { User } from 'src/adapters/schema';
-import { JwtPayload } from 'src/types/auth.types';
+import { UserWithoutPassword } from 'src/adapters/schema';
+import { JwtPayload } from 'src/common/types/auth.types';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +25,7 @@ export class AuthService {
     return 'Hello World!';
   }
 
-  async getUser(payload: JwtPayload): Promise<User> {
+  async getUser(payload: JwtPayload): Promise<UserWithoutPassword> {
     const user = await this.userRepository.findByEmail(payload.email);
     if (!user) throw new UnauthorizedException('User not found');
     return user;

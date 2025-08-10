@@ -11,9 +11,9 @@ import {
 import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { IsEmail, IsString, MinLength } from 'class-validator';
-import { Public } from '../../decoratos/public.decorator';
-import { User } from '../../decoratos/user.decorator';
-import { JwtPayload } from 'src/types/auth.types';
+import { Public } from '../../common/decoratos/public.decorator';
+import { User } from '../../common/decoratos/user.decorator';
+import { JwtPayload } from 'src/common/types/auth.types';
 
 export class LoginDto {
   @IsEmail()

@@ -10,6 +10,7 @@ import {
 import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 
 export type User = InferSelectModel<typeof users>;
+export type UserWithoutPassword = Omit<User, 'password'>;
 export type NewUser = InferInsertModel<typeof users>;
 
 export const users = pgTable('users', {
@@ -26,8 +27,8 @@ export const users = pgTable('users', {
   deletedAt: timestamp('deleted_at', { withTimezone: true }),
 });
 
-// type Task = InferSelectModel<typeof tasks>;
-// type NewTask = InferInsertModel<typeof tasks>;
+export type Task = InferSelectModel<typeof tasks>;
+export type NewTask = InferInsertModel<typeof tasks>;
 
 export const tasks = pgTable('tasks', {
   id: serial('id').primaryKey(),
@@ -45,8 +46,8 @@ export const tasks = pgTable('tasks', {
   deletedAt: timestamp('deleted_at', { withTimezone: true }),
 });
 
-// type TaskStep = InferSelectModel<typeof taskSteps>;
-// type NewTaskStep = InferInsertModel<typeof taskSteps>;
+// export type TaskStep = InferSelectModel<typeof taskSteps>;
+// export type NewTaskStep = InferInsertModel<typeof taskSteps>;
 
 export const taskSteps = pgTable('task_steps', {
   id: serial('id').primaryKey(),

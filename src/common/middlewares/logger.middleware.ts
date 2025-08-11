@@ -9,9 +9,7 @@ export class LoggerMiddleware implements NestMiddleware {
     if (process.env.USE_LOGS !== 'true') return next();
     res.on('finish', () => {
       const duration = Date.now() - start;
-      console.log(
-        `${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`,
-      );
+      console.log(`${req.method} ${req.originalUrl} ${res.statusCode} - ${duration}ms`);
     });
 
     next();

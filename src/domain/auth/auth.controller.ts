@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Res,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Res, UnauthorizedException } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { IsEmail, IsString, MinLength } from 'class-validator';
@@ -27,12 +18,6 @@ export class LoginDto {
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-
-  @Get()
-  @HttpCode(HttpStatus.OK)
-  getHello(): string {
-    return this.authService.getHello();
-  }
 
   @Get('/me')
   @HttpCode(HttpStatus.OK)

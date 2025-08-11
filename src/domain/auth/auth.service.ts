@@ -21,10 +21,6 @@ export class AuthService {
     private readonly userRepository: UsersRepository,
   ) {}
 
-  getHello(): string {
-    return 'Hello World!';
-  }
-
   async getUser(payload: JwtPayload): Promise<UserWithoutPassword> {
     const user = await this.userRepository.findByEmail(payload.email);
     if (!user) throw new UnauthorizedException('User not found');

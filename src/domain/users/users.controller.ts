@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  HttpCode,
-  HttpStatus,
-} from '@nestjs/common';
+import { Body, Controller, Post, HttpCode, HttpStatus } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 import { IsString, IsEmail, MinLength } from 'class-validator';
@@ -26,11 +19,6 @@ export class CreateUserDto {
 @Controller()
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
-  @Get()
-  getHello(): string {
-    return this.usersService.getHello();
-  }
 
   @Post('/account/create')
   @Public()

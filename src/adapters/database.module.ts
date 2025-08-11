@@ -1,11 +1,9 @@
 import { Module, Provider, OnModuleInit } from '@nestjs/common';
-import { drizzle } from 'drizzle-orm/node-postgres';
+import { drizzle, NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { Pool, Client } from 'pg';
-import { users, tasks, taskSteps } from './schema';
-import { createTablesSQL } from 'src/migrations/createTables';
+import * as schema from './schema';
 
 export const DRIZZLE = 'DRIZZLE';
-export type DrizzleType = ReturnType<typeof drizzle>;
 
 export const DrizzleProvider: Provider = {
   provide: DRIZZLE,
@@ -25,9 +23,11 @@ export const DrizzleProvider: Provider = {
       console.error('Failed to connect to the database:', err);
       throw err;
     }
-    return drizzle(pool, { schema: { users, tasks, taskSteps } });
+    return drizzle(pool, { schema });
   },
 };
+
+export type DrizzleType = NodePgDatabase<typeof schema>;
 
 @Module({
   providers: [DrizzleProvider],
@@ -45,11 +45,15 @@ export class DatabaseModule implements OnModuleInit {
 
     await client.connect();
 
-    const sql = createTablesSQL();
-
-    await client.query(sql);
-    await client.end();
-
-    console.log('Migrations executed successfully');
+    // Testa a conexão
+    try {
+      await client.query('SELECT 1');
+      console.log('Drizzle (PostgreSQL) connection established.');
+    } catch (error) {
+      console.error('Failed to connect to the database:', error);
+      throw new Error('Database connection failed');
+    } finally {
+      await client.end();
+    }
   }
 }

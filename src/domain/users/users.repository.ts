@@ -29,9 +29,7 @@ export class UsersRepository {
         .from(users)
         .where(and(eq(users.email, email), isNull(users.deletedAt)))
         .limit(1);
-      return result.length === 0
-        ? null
-        : this.formatUserWithoutPassword(result[0]);
+      return result.length === 0 ? null : this.formatUserWithoutPassword(result[0]);
     } catch (error) {
       console.error('Error finding user by email:', error);
       throw new DatabaseError('Error finding user by email');

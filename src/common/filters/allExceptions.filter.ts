@@ -1,10 +1,4 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
 import type { Request, Response } from 'express';
 
 type HttpErrorPayload = {
@@ -14,19 +8,11 @@ type HttpErrorPayload = {
 };
 
 function isHttpErrorPayload(x: unknown): x is HttpErrorPayload {
-  return (
-    typeof x === 'object' &&
-    x !== null &&
-    ('message' in x || 'error' in x || 'statusCode' in x)
-  );
+  return typeof x === 'object' && x !== null && ('message' in x || 'error' in x || 'statusCode' in x);
 }
 
 function isPgUniqueViolation(e: unknown): e is { code: string } {
-  return (
-    typeof e === 'object' &&
-    e !== null &&
-    (e as { code?: string }).code === '23505'
-  );
+  return typeof e === 'object' && e !== null && (e as { code?: string }).code === '23505';
 }
 
 @Catch()

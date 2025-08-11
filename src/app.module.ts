@@ -12,13 +12,7 @@ import { AuthGuard } from './common/guards/auth.guard';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 
 @Module({
-  imports: [
-    UsersModule,
-    AuthModule,
-    DatabaseModule,
-    HashModule,
-    ConfigModule.forRoot({ isGlobal: true }),
-  ],
+  imports: [UsersModule, AuthModule, DatabaseModule, HashModule, ConfigModule.forRoot({ isGlobal: true })],
   controllers: [],
   providers: [
     AuthRepository,
@@ -30,8 +24,6 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware)
-      .forRoutes({ path: '*', method: RequestMethod.ALL });
+    consumer.apply(LoggerMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

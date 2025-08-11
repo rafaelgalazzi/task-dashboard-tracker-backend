@@ -10,11 +10,7 @@ export class UsersService {
     private readonly usersRepository: UsersRepository,
   ) {}
 
-  async createUser(
-    name: string,
-    email: string,
-    password: string,
-  ): Promise<string> {
+  async createUser(name: string, email: string, password: string): Promise<string> {
     const existingUser = await this.usersRepository.findByEmail(email);
 
     if (existingUser) throw new ConflictException('Email already in use');
@@ -30,9 +26,5 @@ export class UsersService {
     const createdUser = await this.usersRepository.create(newUser);
 
     return `User created with ID: ${createdUser.id}`;
-  }
-
-  getHello(): string {
-    return 'Hello World!';
   }
 }

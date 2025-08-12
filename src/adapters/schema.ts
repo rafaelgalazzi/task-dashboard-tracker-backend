@@ -1,4 +1,4 @@
-import { pgTable, serial, varchar, integer, timestamp, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, serial, varchar, integer, timestamp, pgEnum, boolean } from 'drizzle-orm/pg-core';
 
 import { InferInsertModel, InferSelectModel, relations } from 'drizzle-orm';
 
@@ -11,6 +11,8 @@ export const users = pgTable('users', {
   name: varchar('name', { length: 255 }).notNull(),
   password: varchar('password', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull().unique(),
+  isConfirmed: boolean('is_confirmed').notNull().default(false),
+  hasTwoFactorAuth: boolean('has_two_factor_auth').notNull().default(false),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   deletedAt: timestamp('deleted_at', { withTimezone: true }),
@@ -76,3 +78,27 @@ export const tasksRelations = relations(tasks, ({ many }) => ({
 export const taskStepsRelations = relations(taskSteps, ({ one }) => ({
   task: one(tasks, { fields: [taskSteps.taskId], references: [tasks.id] }),
 }));
+
+export const email_verification_tokens = pgTable('email_verification_tokens', {
+  id: serial('id').primaryKey(),
+  token: varchar('token', { length: 255 }).notNull().unique(),
+  userId: integer('user_id')
+    .references(() => users.id)
+    .notNull(),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  consumedAt: timestamp('consumed_at', { withTimezone: true }),
+  attempts: integer('attempts').notNull().default(0),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const two_factor_auth_tokens = pgTable('two_factor_auth_tokens', {
+  id: serial('id').primaryKey(),
+  token: varchar('token', { length: 255 }).notNull().unique(),
+  userId: integer('user_id')
+    .references(() => users.id)
+    .notNull(),
+  expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
+  consumedAt: timestamp('consumed_at', { withTimezone: true }),
+  attempts: integer('attempts').notNull().default(0),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+});

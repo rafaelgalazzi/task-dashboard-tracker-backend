@@ -1,9 +1,10 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { IsString } from 'class-validator';
+import { IsInt, IsOptional, IsString } from 'class-validator';
 import { JwtPayload } from 'src/common/types/auth.types';
 import { User } from 'src/common/decoratos/user.decorator';
 import { Task } from 'src/adapters/schema';
+import { Type } from 'class-transformer';
 
 export class CreateTaskDto {
   @IsString()
@@ -14,9 +15,22 @@ export class CreateTaskDto {
 }
 
 export class ListTasksDto {
-  page: number;
-  perPage: number;
+  @Type(() => Number)
+  @IsOptional()
+  @IsInt()
+  page?: number;
+
+  @Type(() => Number)
+  @IsOptional()
+  @IsInt()
+  perPage?: number;
+
+  @IsOptional()
+  @IsString()
   search?: string;
+
+  @IsOptional()
+  @IsString()
   orderBy?: keyof Task;
 }
 
@@ -69,7 +83,10 @@ export class TasksController {
   async getTasks(@User() user: JwtPayload, @Param() params: ListTasksDto) {
     try {
       const tasks = await this.tasksService.listUserTasks({
-        ...params,
+        page: params.page || 1,
+        perPage: params.perPage || 10,
+        search: params.search,
+        orderBy: params.orderBy,
         userId: Number(user.sub),
       });
       return {

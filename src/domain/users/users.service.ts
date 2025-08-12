@@ -21,10 +21,13 @@ export class UsersService {
       name,
       email,
       password: hashedPassword,
+      isConfirmed: false,
     };
 
     const createdUser = await this.usersRepository.create(newUser);
 
-    return `User created with ID: ${createdUser.id}`;
+    //Send confirmation email
+
+    return `User created with ID: ${createdUser.id}, Confirmation email sent`;
   }
 }

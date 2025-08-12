@@ -10,9 +10,10 @@ import { AllExceptionsFilter } from './common/filters/allExceptions.filter';
 import { APP_GUARD, Reflector } from '@nestjs/core';
 import { AuthGuard } from './common/guards/auth.guard';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
+import { TaskModule } from './domain/tasks/tasks.module';
 
 @Module({
-  imports: [UsersModule, AuthModule, DatabaseModule, HashModule, ConfigModule.forRoot({ isGlobal: true })],
+  imports: [UsersModule, AuthModule, TaskModule, DatabaseModule, HashModule, ConfigModule.forRoot({ isGlobal: true })],
   controllers: [],
   providers: [
     AuthRepository,

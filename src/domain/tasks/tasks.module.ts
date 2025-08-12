@@ -8,7 +8,7 @@ import { UsersRepository } from '../users/users.repository';
 @Module({
   imports: [DatabaseModule],
   controllers: [TasksController],
-  providers: [TasksService, UsersRepository],
+  providers: [TasksService, UsersRepository, TasksRepository],
   exports: [TasksRepository],
 })
 export class TaskModule {}

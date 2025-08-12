@@ -1,9 +1,4 @@
-import {
-  Inject,
-  Injectable,
-  NotFoundException,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { HASH, IHash } from 'src/adapters/hash.module';
 import { AuthRepository } from './auth.repository';
 import { JwtService } from '@nestjs/jwt';

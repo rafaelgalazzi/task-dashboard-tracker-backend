@@ -41,6 +41,8 @@ export class UsersRepository {
       id: user.id,
       name: user.name,
       email: user.email,
+      isConfirmed: user.isConfirmed,
+      hasTwoFactorAuth: user.hasTwoFactorAuth,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
       deletedAt: user.deletedAt,

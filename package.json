@@ -1,7 +1,7 @@
 {
-  "name": "project-name",
+  "name": "task-dashboard-tracker-backend",
   "version": "0.0.1",
-  "description": "",
+  "description": "Backend API for a task management dashboard built with NestJS, PostgreSQL, and Drizzle ORM",
   "author": "",
   "private": true,
   "license": "UNLICENSED",

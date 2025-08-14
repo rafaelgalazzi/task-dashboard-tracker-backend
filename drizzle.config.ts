@@ -16,4 +16,5 @@ export default defineConfig({
 
 // Run the commandond to generate migrations:
 // npx drizzle-kit generate --config drizzle.config.ts
+// npx drizzle-kit push --config drizzle.config.ts
 // To Drop all tables: // await client.query('DROP SCHEMA public CASCADE; CREATE SCHEMA public;');

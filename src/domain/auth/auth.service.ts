@@ -27,6 +27,8 @@ export class AuthService {
 
     if (!user) throw new NotFoundException(`Invalid login`);
 
+    if (!user.isConfirmed) throw new NotFoundException('Account not confirmed');
+
     const isPasswordValid = await this.hash.compare(password, user.password);
 
     if (!isPasswordValid) throw new NotFoundException('Invalid login');

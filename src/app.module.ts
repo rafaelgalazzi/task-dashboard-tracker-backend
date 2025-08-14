@@ -12,6 +12,7 @@ import { AuthGuard } from './common/guards/auth.guard';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { TaskModule } from './domain/tasks/tasks.module';
 import { EmailModule } from './common/email/email.module';
+import { HbsModule } from './common/email/handlebars.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { EmailModule } from './common/email/email.module';
     HashModule,
     ConfigModule.forRoot({ isGlobal: true }),
     EmailModule,
+    HbsModule,
   ],
   controllers: [],
   providers: [

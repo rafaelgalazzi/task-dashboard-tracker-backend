@@ -13,7 +13,10 @@ export class CreateUserDto {
   password: string;
 
   @IsString()
-  name: string;
+  firstName: string;
+
+  @IsString()
+  lastName: string;
 }
 
 @Controller()
@@ -24,10 +27,15 @@ export class UsersController {
   @Public()
   @HttpCode(HttpStatus.CREATED)
   async createUser(@Body() body: CreateUserDto) {
-    const { name, email, password } = body;
+    const { firstName, lastName, email, password } = body;
 
     try {
-      await this.usersService.createUser(name, email, password);
+      await this.usersService.createUser({
+        firstName,
+        lastName,
+        email,
+        password,
+      });
     } catch (error) {
       console.log('Error creating user:', error);
       throw error;
@@ -37,5 +45,17 @@ export class UsersController {
       message: 'User created successfully',
       status: 'success',
     };
+  }
+
+  @Post('/account/confirm-email')
+  @Public()
+  @HttpCode(HttpStatus.OK)
+  async confirmUser(@Body() body: { token: string }) {
+    try {
+      await this.usersService.confirmAccount({ token: body.token });
+    } catch (error) {
+      console.log('Error confirming user:', error);
+      throw error;
+    }
   }
 }

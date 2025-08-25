@@ -8,12 +8,13 @@ export type NewUser = InferInsertModel<typeof users>;
 
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
-  firstName: varchar('firstName', { length: 255 }).notNull(),
-  lastName: varchar('lastName', { length: 255 }).notNull(),
+  firstName: varchar('first_name', { length: 255 }).notNull(),
+  lastName: varchar('last_name', { length: 255 }).notNull(),
   password: varchar('password', { length: 255 }).notNull(),
   email: varchar('email', { length: 255 }).notNull().unique(),
   isConfirmed: boolean('is_confirmed').notNull().default(false),
   hasTwoFactorAuth: boolean('has_two_factor_auth').notNull().default(false),
+  profileImage: varchar('profile_image', { length: 255 }),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
   deletedAt: timestamp('deleted_at', { withTimezone: true }),
@@ -26,6 +27,7 @@ export const tasks = pgTable('tasks', {
   id: serial('id').primaryKey(),
   title: varchar('title', { length: 255 }).notNull(),
   description: varchar('description', { length: 1024 }).notNull(),
+  projectId: integer('project_id').references(() => projects.id),
   userId: integer('user_id')
     .references(() => users.id)
     .notNull(),
@@ -101,4 +103,16 @@ export const two_factor_auth_tokens = pgTable('two_factor_auth_tokens', {
   consumedAt: timestamp('consumed_at', { withTimezone: true }),
   attempts: integer('attempts').notNull().default(0),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+});
+
+export const projects = pgTable('projects', {
+  id: serial('id').primaryKey(),
+  title: varchar('title', { length: 255 }).notNull(),
+  description: varchar('description', { length: 1024 }).notNull(),
+  userId: integer('user_id')
+    .references(() => users.id)
+    .notNull(),
+  createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+  deletedAt: timestamp('deleted_at', { withTimezone: true }),
 });

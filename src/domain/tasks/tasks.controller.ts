@@ -12,6 +12,9 @@ export class CreateTaskDto {
 
   @IsString()
   description: string;
+
+  @IsInt()
+  projectId: number;
 }
 
 export class ListTasksDto {

@@ -28,6 +28,7 @@ export class TasksRepository {
           title: taskData.title,
           description: taskData.description,
           userId: taskData.userId,
+          projectId: taskData.projectId,
         })
         .returning();
       return newTask[0];

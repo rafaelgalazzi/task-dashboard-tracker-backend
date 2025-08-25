@@ -27,7 +27,9 @@ export const tasks = pgTable('tasks', {
   id: serial('id').primaryKey(),
   title: varchar('title', { length: 255 }).notNull(),
   description: varchar('description', { length: 1024 }).notNull(),
-  projectId: integer('project_id').references(() => projects.id),
+  projectId: integer('project_id')
+    .references(() => projects.id)
+    .notNull(),
   userId: integer('user_id')
     .references(() => users.id)
     .notNull(),

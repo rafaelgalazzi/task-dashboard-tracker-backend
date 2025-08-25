@@ -14,7 +14,7 @@ interface ListUserTasks {
 export class TasksService {
   constructor(private readonly tasksRepository: TasksRepository) {}
 
-  async createTask(form: { title: string; description: string; userId: number }) {
+  async createTask(form: { title: string; description: string; userId: number; projectId: number }) {
     return await this.tasksRepository.create(form);
   }
 

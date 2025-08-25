@@ -20,6 +20,7 @@ describe('AuthController', () => {
     lastName: 'Doe',
     isConfirmed: true,
     hasTwoFactorAuth: false,
+    profileImage: null,
     createdAt: new Date(),
     updatedAt: new Date(),
     deletedAt: null,

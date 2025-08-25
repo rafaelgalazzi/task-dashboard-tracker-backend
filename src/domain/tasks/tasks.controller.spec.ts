@@ -17,6 +17,7 @@ describe('TasksController', () => {
     title: 'Test Task',
     description: 'Test Description',
     userId: 1,
+    projectId: 1,
     createdAt: new Date(),
     updatedAt: new Date(),
     deletedAt: null,
@@ -65,6 +66,7 @@ describe('TasksController', () => {
       const createTaskDto: CreateTaskDto = {
         title: 'Test Task',
         description: 'Test Description',
+        projectId: 1,
       };
 
       const createdTask = {

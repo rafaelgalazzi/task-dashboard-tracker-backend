@@ -107,6 +107,9 @@ export const two_factor_auth_tokens = pgTable('two_factor_auth_tokens', {
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 });
 
+export type Project = InferSelectModel<typeof projects>;
+export type NewProject = InferInsertModel<typeof projects>;
+
 export const projects = pgTable('projects', {
   id: serial('id').primaryKey(),
   title: varchar('title', { length: 255 }).notNull(),

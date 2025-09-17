@@ -50,6 +50,7 @@ export class DatabaseModule implements OnModuleInit {
       await client.query('SELECT 1');
       console.log('Drizzle (PostgreSQL) connection established.');
       // await client.query('DROP SCHEMA public CASCADE; CREATE SCHEMA public;');
+      // run after drop all npx drizzle-kit push --config drizzle.config.ts
     } catch (error) {
       console.error('Failed to connect to the database:', error);
       throw new Error('Database connection failed');

@@ -13,6 +13,7 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { TaskModule } from './domain/tasks/tasks.module';
 import { EmailModule } from './common/email/email.module';
 import { HbsModule } from './common/email/handlebars.module';
+import { ProjectModule } from './domain/projects/projects.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { HbsModule } from './common/email/handlebars.module';
     ConfigModule.forRoot({ isGlobal: true }),
     EmailModule,
     HbsModule,
+    ProjectModule,
   ],
   controllers: [],
   providers: [

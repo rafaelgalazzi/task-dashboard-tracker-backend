@@ -61,7 +61,6 @@ export class ProjectsController {
   @Get('/list')
   @HttpCode(HttpStatus.OK)
   async getProjects(@User() user: JwtPayload, @Param() params: ListProjectsDto) {
-    console.log('aqui');
     try {
       const projects = await this.projectsService.listProjects({
         userId: Number(user.sub),

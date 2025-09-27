@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { IsInt, IsOptional, IsString } from 'class-validator';
 import { JwtPayload } from 'src/common/types/auth.types';
 import { User } from 'src/common/decoratos/user.decorator';
@@ -32,6 +32,12 @@ export class ListProjectsDto {
   @IsOptional()
   @IsString()
   orderBy?: keyof Project;
+}
+
+export class EditParamDto {
+  @Type(() => Number)
+  @IsInt()
+  id: number;
 }
 
 @Controller('/project')
@@ -79,5 +85,17 @@ export class ProjectsController {
       console.error('Error fetching tasks:', error);
       throw error;
     }
+  }
+
+  @Put('/update')
+  @HttpCode(HttpStatus.OK)
+  async updateProject(@User() user: JwtPayload, @Param() params: EditParamDto) {
+    console.log(user);
+    console.log(params);
+    const project = await new Promise(() => {});
+    console.log(project);
+    return {
+      statusCode: HttpStatus.OK,
+    };
   }
 }
